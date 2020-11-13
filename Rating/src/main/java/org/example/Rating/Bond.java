@@ -10,7 +10,8 @@ public class Bond {
         this.ParValue = ParValue;
         this.Percent = Percent;
         this.Time = Time;
-        this.CF = CF;
+        if(CF.length == Time)
+            this.CF = CF;
     }
     public double PresentValue(){
         double PV = 0;
@@ -18,6 +19,13 @@ public class Bond {
             PV += CF[i] / Math.pow((1 + Percent / 100), i);
         }
         return PV;
+    }
+
+    public double Profit(){
+        double CashFlow = 0;
+        for (int i = 0; i < CF.length; i++)
+            CashFlow += CF[i];
+        return (CashFlow - PresentValue()) / PresentValue();
     }
 
     public double ForwardRate(double SecondPercent, int SecondTime){
